@@ -3,6 +3,7 @@ import "./Header.css"
 // import logo from"../imagges/Amazon-Logo.png"
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import { Outlet } from 'react-router-dom';
 
 function Header() {
   return (
@@ -35,6 +36,7 @@ function Header() {
             </div>
     </div>
   )
+  
 }
 
 export default Header
