@@ -5,12 +5,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import reducer, { initailState } from './Front-End/reducer';
+import Stateprovider from './Front-End/Stateprovider/Stateprovider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
 <BrowserRouter>
+<Stateprovider intialstate={initailState} reducer={reducer }>
 <App/>
+</Stateprovider>
+
 </BrowserRouter>
 
   </React.StrictMode>
