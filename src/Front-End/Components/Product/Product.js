@@ -1,13 +1,16 @@
 import React from 'react'
 import"./Product.css"
 import { useStateValue } from '../../Stateprovider/Stateprovider'
+import { Link } from 'react-router-dom'
 
 function Product({id,title,image,price,rating})
  {
-  const [{basket},dispatch]=useStateValue()
+   
+  const [basket,dispatch]=useStateValue()
+  console.log("this is the basket ",basket)
+  //action that we take
 
-  const addToBasket=()=>{
-    
+  const addToBasket=(e)=>{
     dispatch({
       type:"ADD_TO_BASKET",
       item:{
@@ -35,7 +38,9 @@ function Product({id,title,image,price,rating})
        <img src={image}
 alt=''/>
 <button onClick={addToBasket}>Add to basket</button>
+<Link to="Checkout">Hello</Link>
     </div>
+    
   )
 }
 

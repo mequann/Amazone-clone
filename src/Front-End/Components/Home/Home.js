@@ -1,14 +1,17 @@
 import React from 'react'
 import"./Home.css"
-import banner from"../imagges/banner1.png"
+// import banner from"../imagges/banner1.png"
 import Product from '../Product/Product'
 
 function Home() {
   return (
     <div  className='home'>
         <div className='home__container'>
-            <img className='home__image'
-            src={banner} alt=''/>
+        <img
+						className="home__image"
+						src="https://images-eu.ssl-images-amazon.com/images/G/02/digital/video/merch2016/Hero/Covid19/Generic/GWBleedingHero_ENG_COVIDUPDATE__XSite_1500x600_PV_en-GB._CB428684220_.jpg"
+						alt=""
+					/>
             <div className='home__row'>
             <Product id="1234"
             image="https://m.media-amazon.com/images/I/51RH458E6RL._AC_SY200_.jpg"
@@ -33,7 +36,7 @@ function Home() {
                 image="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2022/February/DashboardCards/GW_CONS_AUS_HPC_HPCEssentials_CatCard_Desktop1x._SY304_CB627424361_.jpg"
                 title="Health &amp; Personal Care"
                 price={109.78}
-                rating={1}/>  
+                rating={5}/>  
             <Product
             id="12346"
             image="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Dashboard/Fuji_Dash_Laptops_379x304_1X_en_US._SY304_CB418608471_.jpg"
@@ -51,13 +54,13 @@ function Home() {
                 image="https://m.media-amazon.com/images/I/51xbsVyPhGL._AC_UF226,226_FMjpg_.jpg"
                 title="COOFANDY Men's Christmas Sweater Ugly Knitted Xmas Sweaters Casual Snowflake Pullover Knitwear"
                 price={18.78}
-                rating={2}/>  
+                rating={3}/>  
             <Product
             id="123422"
             image="https://m.media-amazon.com/images/I/91KuFOBgkFL._AC_UL320_.jpg"
             title=" SHistory of Ethiopia: A Captivating Guide to Ethiopian History (African History)"
             price={55.78}
-            rating={1}/>  
+            rating={4}/>  
             <Product 
             id="123433"
             image="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/September/DashboardCards/Fuji_Dash_SmartWatch_1X._SY304_CB639922137_.jpg"

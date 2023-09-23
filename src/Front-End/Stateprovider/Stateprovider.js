@@ -1,10 +1,10 @@
-import {createContext, useContext,useReducer,useState} from 'react'
-
+import {createContext, useContext,useReducer} from 'react'
+//prepares the data layer
 export const stateContext=createContext()
 //wrap our app and provide the data layer
-function Stateprovider({reducer,initailState,children}) {
+function Stateprovider({reducer,initialState,children}) {
   return (
-    <stateContext.Provider value={useReducer(reducer,initailState)}>
+    <stateContext.Provider value={useReducer(reducer, initialState)}>
         {children}
     </stateContext.Provider>
   )
