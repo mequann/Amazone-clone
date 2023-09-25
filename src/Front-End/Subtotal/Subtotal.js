@@ -4,17 +4,21 @@ import"./Subtotal.css"
 import { useStateValue } from '../Stateprovider/Stateprovider';
 
 function Subtotal() {
-  // const [{basket},dispatch]=useStateValue()
-  // function getBasketTotlal(basket){
-  //   basket?.reduce((amount,item)=>item.price+amount,0)
-  // }
+  const [{basket}]=useStateValue()
+  function getBasketTotlal(basket){
+    basket?.reduce((amount,item)=>item.price+amount,0)
+    // console.log( basket?.reduce((amount,item)=>item.price+amount,0))
+  }
+  
   return (
     <div className='subtotal'>
+      {/* {console.log(getBasketTotlal(basket))} */}
         <CurrencyFormat
         renderText={(value)=>(
+          
             <div className=''>
                 <p>
-                {/* Subtotal({basket.length} items):<strong>{value}</strong> */}
+                Subtotal({basket.length} items):<strong>{value}</strong>
                 </p>
                 <small className='subtotal__gift'>
                 <input type="checkbox"/>This order contains a gift
@@ -26,12 +30,13 @@ function Subtotal() {
     }
       
          decimalScale={2}
-        //  value={getBasketTotlal(basket)}
+         value={getBasketTotlal(basket)}
          displayType={'text'}
          thousandSeparator={true}
          prefix={"$"}
         />
         <button> proceed to checkout</button>
+       
     </div>
   )
 }

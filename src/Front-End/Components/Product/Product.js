@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom'
 function Product({id,title,image,price,rating})
  {
    
-  const [basket,dispatch]=useStateValue()
-  console.log("this is the basket ",basket)
+  const [{basket},dispatch]=useStateValue()
+  // console.log("this is the basket ",basket)
   //action that we take
 
-  const addToBasket=(e)=>{
+  const addToBasket=()=>{
     dispatch({
       type:"ADD_TO_BASKET",
       item:{
@@ -18,6 +18,7 @@ function Product({id,title,image,price,rating})
         title,
         image,
         rating,
+        price,
       }
     })
   }
