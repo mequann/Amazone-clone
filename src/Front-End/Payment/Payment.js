@@ -2,13 +2,15 @@ import React from "react";
 import "./Payment.css";
 import { useStateValue } from "../Stateprovider/Stateprovider";
 import { Link, useNavigate } from "react-router-dom";
-import Checkout from "../Check-Out_page/Checkout";
+// import Checkout from "../Check-Out_page/Checkout";
 import CheckoutProduct from "../ChechoutProduct/CheckoutProduct";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
 import { useState,useEffect  } from "react";
 import axios from "../axios";
+import {db} from'../../Firebase/Firebase'
 
+const baseUrl= "http://127.0.0.1:5001/clone-9e0f3/us-central1/api"
 
 function Payment() {
   const [{ basket, user }, dispatch] = useStateValue();
@@ -26,29 +28,41 @@ function Payment() {
   }
   useEffect(()=>{
     const getClientSecret=async()=>{
-        const response=await axios({
+        const response=await fetch({
             method:"post",
-        url:`/payments/create?total=${getBasketTotlal(basket)*100}`
+        url:baseUrl+`/payments/create?total=${getBasketTotlal(basket)*100}`
         })
-        setClientSecret(response.data.clientSecret)
+        setClientSecret(response.clientSecret)
       };
       getClientSecret();
   },[basket])
+  console.log('theclientSecret is',clientSecret)
 
 
   const haldleSubmit = async(e) => {
     e.preventDefault()
     setprocessing(true)
-    const payload=await stripe.confirmAffirmPayment(clientSecret,{
+    const payload = await stripe.confirmCardPayment(clientSecret,{
         payment_method:{
             card:Elements.getElement(CardElement)
         }
-    })
-    //payment intent=payment confirmetion
-    .then(({paymentIntent})=>{
+    }).then(({paymentIntent})=>{//payment intent=payment confirmetion
         setSucceeded(true);
         setError(null);
         setprocessing(false);
+        db.collection('users')
+        .doc(user?.id)
+        .collection('orders')
+        .doc(paymentIntent.id)
+        .set({
+          basket:basket,
+          amount:paymentIntent.amount,
+          created:paymentIntent.created,
+
+        })
+        dispatch({
+          type:"EMPTY_BASKET"
+        })
         navigate("/order")
     })
 
@@ -105,7 +119,7 @@ function Payment() {
                     thousandSeparator={true}
                     prefix={"$"}
                   />
-                  <button disabled={processing || disabled || succeeded}>
+                  <button disabled={processing || disabled || succeeded} >
                     <span>{processing ? <p>processing</p> : "Buy Now"}</span>
                   </button>
                 </div>
