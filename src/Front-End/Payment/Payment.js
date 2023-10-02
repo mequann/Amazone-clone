@@ -7,8 +7,9 @@ import CheckoutProduct from "../ChechoutProduct/CheckoutProduct";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
 import { useState,useEffect  } from "react";
-import axios from "../axios";
+// import axios from "../axios";
 import {db} from'../../Firebase/Firebase'
+import  axios  from 'axios';
 
 const baseUrl= "http://127.0.0.1:5001/clone-9e0f3/us-central1/api"
 
@@ -23,20 +24,19 @@ function Payment() {
   const [processing, setprocessing] = useState("");
   const [clientSecret,setClientSecret]=useState(true)
   function getBasketTotlal(basket) {
-    basket?.reduce((amount, item) => item.price + amount, 0);
-    // console.log( basket?.reduce((amount,item)=>item.price+amount,0))
+   return basket?.reduce((amount, item) => item.price + amount, 0);
+    //  console.log( basket?.reduce((amount,item)=>item.price+amount,0))
   }
   useEffect(()=>{
     const getClientSecret=async()=>{
-        const response=await fetch({
-            method:"post",
-        url:baseUrl+`/payments/create?total=${getBasketTotlal(basket)*100}`
-        })
-        setClientSecret(response.clientSecret)
+        const response=await axios.post(`http://127.0.0.1:5001/clone-9e0f3/us-central1/api/payments/create?total=${getBasketTotlal(basket)*100}`)
+        //if we use params :substitute?total= by /
+        //console.log(response)
+        setClientSecret(response.data.clientSecret)
       };
       getClientSecret();
   },[basket])
-  console.log('theclientSecret is',clientSecret)
+  console.log('the clientSecret is',clientSecret)
 
 
   const haldleSubmit = async(e) => {
@@ -63,7 +63,7 @@ function Payment() {
         dispatch({
           type:"EMPTY_BASKET"
         })
-        navigate("/order")
+        navigate("/Orders")
     })
 
   }

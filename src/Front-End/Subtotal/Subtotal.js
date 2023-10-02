@@ -7,14 +7,15 @@ import { useNavigate } from 'react-router-dom';
 function Subtotal() {
   const [{basket}]=useStateValue()
   const navigate = useNavigate();
-  function getBasketTotlal(basket){
-    basket?.reduce((amount,item)=>item.price+amount,0)
+  const getBasketTotlal=(basket)=>{
+    return basket?.reduce((amount,item)=>item.price+amount,0)
     // console.log( basket?.reduce((amount,item)=>item.price+amount,0))
-  }
+   }
   
-  return (
-    <div className='subtotal'>
+   return (
+     <div className='subtotal'>
       {/* {console.log(getBasketTotlal(basket))} */}
+
         <CurrencyFormat
         renderText={(value)=>(
           

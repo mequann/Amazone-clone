@@ -26,15 +26,21 @@ app.get('/',(req,res)=>{
 //     res.status(200).send("Hello Evangadi COmmunity")
 // })
 app.post('/payments/create',async(req,res)=>{
-    const total=re.query.total;
-    console.log('payment requiest recieved for this amount >>' ,total)
+    // '/payements/create/:total'
+    //  const total=req.params.total;  
+    const total=req.query.total;  
+    // console.log("server is geting")
+    console.log(total)
+    let newTotal = parseInt(total)
+    console.log('payment requiest recieved for this amount >>' ,newTotal)
     const paymentIntent=await stripe.paymentIntents.create({
-       amount:total,
+       amount:newTotal,
        currency:'usd' ,
     })
     // ok created
+    console.log(paymentIntent)
     res.status(201).send({
-        clientSecret:paymentIntent.clientSecret,
+        clientSecret:paymentIntent.client_secret,
     })
 })
 // listener

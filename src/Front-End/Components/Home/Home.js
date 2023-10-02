@@ -16,18 +16,18 @@ function Home() {
             <Product id="1234"
             image="https://m.media-amazon.com/images/I/51RH458E6RL._AC_SY200_.jpg"
             title=" AP Statistics Premium, 2024: 9 Practice Tests + Comprehensive Review + Online Practice (Barron's AP) "
-            price={12.78}
+            price={1230.78}
             rating={4}/>  
              <Product id="12344"
             image="https://m.media-amazon.com/images/I/71yrLllDokL._AC_UL320_.jpg"
             title=" AP Statistics Premium, 2024: 9 Practice Tests + Comprehensive Review + Online Practice (Barron's AP) "
-            price={120.78}
+            price={1290.78}
             rating={5}/> 
             <Product
             id="12345"
             image="https://m.media-amazon.com/images/I/71FldKWMyjL._AC_UY218_.jpg"
             title="Hamilton Beach 6-Speed Electric Hand Mixer with Whisk, Traditional Beaters, Snap-On Storage Case, Dough Hooks, Red"
-            price={192.78}
+            price={1920.78}
             rating={4}/>   
             </div>
             <div className='home__row'>
@@ -35,19 +35,19 @@ function Home() {
                 id="12349"
                 image="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2022/February/DashboardCards/GW_CONS_AUS_HPC_HPCEssentials_CatCard_Desktop1x._SY304_CB627424361_.jpg"
                 title="Health &amp; Personal Care"
-                price={109.78}
+                price={1090.78}
                 rating={5}/>  
             <Product
             id="12346"
             image="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Dashboard/Fuji_Dash_Laptops_379x304_1X_en_US._SY304_CB418608471_.jpg"
             title=" Shop Laptops &amp; Tablets"
-            price={17.78}
+            price={178.78}
             rating={3}/>  
             <Product 
             id="12348"
             image="https://m.media-amazon.com/images/I/61Wi87qUu5L._AC_UF226,226_FMjpg_.jpg"
             title="Under Armour Apparel, Footwear, and Accessories"
-            price={190.78}
+            price={1790.78}
             rating={5}/> 
             <Product
                 id="123411"
@@ -59,13 +59,13 @@ function Home() {
             id="123422"
             image="https://m.media-amazon.com/images/I/91KuFOBgkFL._AC_UL320_.jpg"
             title=" SHistory of Ethiopia: A Captivating Guide to Ethiopian History (African History)"
-            price={55.78}
+            price={550.78}
             rating={4}/>  
             <Product 
             id="123433"
             image="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/September/DashboardCards/Fuji_Dash_SmartWatch_1X._SY304_CB639922137_.jpg"
             title="Shop activity trackers and smartwatches"
-            price={119.78}
+            price={1019.78}
             rating={3}/> 
             </div>
             <div className='home__row'>

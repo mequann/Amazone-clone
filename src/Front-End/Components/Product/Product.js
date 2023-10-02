@@ -39,7 +39,7 @@ function Product({id,title,image,price,rating})
        <img src={image}
 alt=''/>
 <button onClick={addToBasket}>Add to basket</button>
-<Link to="Checkout">Hello</Link>
+<Link to="/Checkout">Hello</Link>
     </div>
     
   )
