@@ -6,68 +6,81 @@ import { Link, useNavigate } from "react-router-dom";
 import CheckoutProduct from "../ChechoutProduct/CheckoutProduct";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
-import { useState,useEffect  } from "react";
+import { useState, useEffect } from "react";
 // import axios from "../axios";
-import {db} from'../../Firebase/Firebase'
-import  axios  from 'axios';
+import { db } from "../../Firebase/Firebase";
+import axios from "axios";
 
-const baseUrl= "http://127.0.0.1:5001/clone-9e0f3/us-central1/api"
+const baseUrl = "http://127.0.0.1:5001/clone-9e0f3/us-central1/api";
 
 function Payment() {
   const [{ basket, user }, dispatch] = useStateValue();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const Elements = useElements();
   const stripe = useStripe();
   const [error, setError] = useState(null);
   const [disabled, setDisapled] = useState(true);
   const [succeeded, setSucceeded] = useState(false);
   const [processing, setprocessing] = useState("");
-  const [clientSecret,setClientSecret]=useState(true)
+  const [clientSecret, setClientSecret] = useState(true);
   function getBasketTotlal(basket) {
-   return basket?.reduce((amount, item) => item.price + amount, 0);
+    return basket?.reduce((amount, item) => item.price + amount, 0);
     //  console.log( basket?.reduce((amount,item)=>item.price+amount,0))
   }
-  useEffect(()=>{
-    const getClientSecret=async()=>{
-        const response=await axios.post(`http://127.0.0.1:5001/clone-9e0f3/us-central1/api/payments/create?total=${getBasketTotlal(basket)*100}`)
-        //if we use params :substitute?total= by /
-        //console.log(response)
-        setClientSecret(response.data.clientSecret)
-      };
-      getClientSecret();
-  },[basket])
-  console.log('the clientSecret is',clientSecret)
+  useEffect(() => {
+    const getClientSecret = async () => {
+      const response = await axios.post(
+        `http://127.0.0.1:5001/clone-9e0f3/us-central1/api/payments/create?total=${
+          getBasketTotlal(basket) * 100
+        }`
+      );
+      //if we use params :substitute?total= by /
+      //console.log(response)
+      setClientSecret(response.data.clientSecret);
+    };
+    getClientSecret();
+  }, [basket]);
 
+  console.log("the clientSecret is", clientSecret);
 
-  const haldleSubmit = async(e) => {
-    e.preventDefault()
-    setprocessing(true)
-    const payload = await stripe.confirmCardPayment(clientSecret,{
-        payment_method:{
-            card:Elements.getElement(CardElement)
-        }
-    }).then(({paymentIntent})=>{//payment intent=payment confirmetion
+  const haldleSubmit = async (e) => {
+    e.preventDefault();
+    setprocessing(true);
+    const payload = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: Elements.getElement(CardElement),
+        },
+      })
+      .then(({ paymentIntent }) => {
+        //payment intent=payment confirmetion
+        //Sets the succeeded state variable to true to indicate that the payment was successful.
         setSucceeded(true);
+        //Sets the error state variable to null to clear any previous errors.
         setError(null);
         setprocessing(false);
-        db.collection('users')
-        .doc(user?.id)
-        .collection('orders')
-        .doc(paymentIntent.id)
-        .set({
-          basket:basket,
-          amount:paymentIntent.amount,
-          created:paymentIntent.created,
-
-        })
+        //  Updates the user's order in the Firebase database.
+        db.collection("users")
+          .doc(user?.id)
+          .collection("orders")
+          .doc(paymentIntent.id)
+          .set({
+            basket: basket,
+            amount: paymentIntent.amount,
+            created: paymentIntent.created,
+          });
+          console.log(basket)
+         
         dispatch({
-          type:"EMPTY_BASKET"
-        })
-        navigate("/Orders")
-    })
+          type: "EMPTY_BASKET",
+        });
+        navigate("/orders");
+        
+      })
+      .catch(ex =>{
+        console.log(ex.message)
+      })
+  };
 
-  }
- 
   const haldleChange = (event) => {
     setDisapled(event.empty);
     setError(event.error ? event.error.message : "");
@@ -93,8 +106,9 @@ function Payment() {
             <h3> Review items and Delivery</h3>
           </div>
           <div className="payment__items">
-            {basket?.map((item) => (
+            {basket?.map((item, i) => (
               <CheckoutProduct
+                key={i}
                 id={item.id}
                 title={item.title}
                 image={item.image}
@@ -119,11 +133,11 @@ function Payment() {
                     thousandSeparator={true}
                     prefix={"$"}
                   />
-                  <button disabled={processing || disabled || succeeded} >
+                  <button disabled={processing || disabled || succeeded}>
                     <span>{processing ? <p>processing</p> : "Buy Now"}</span>
                   </button>
                 </div>
-                {error &&<div>{error}</div>}
+                {error && <div>{error}</div>}
               </form>
             </div>
           </div>

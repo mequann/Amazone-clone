@@ -14,6 +14,7 @@ import Orders from "./Front-End/Orders/Orders";
 import { useStateValue } from "./Front-End/Stateprovider/Stateprovider";
 import { useEffect } from "react";
 import { auth } from "./Firebase/Firebase";
+import Order from "./Front-End/Order/Order";
 // import Product from './Front-End/Components/Product/Product';
 const promise=loadStripe('pk_test_51NvcAgD6gAjDZKAk2c5Jh9qFcIoeChOlaY6hXmurjN6I96zI2So0wJDNvlfiNJRPXJf4E5Wvb2EXnan0eXBvvLrM00ii2CohCR')
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Routes >
         
         <Route path="/"  element={<Home/>} />
+        <Route path="/order"  element={<Order/>} />
         <Route path="Checkout" element={<Checkout/>}/>
         <Route path="LogIn" element={<LogIn/>}/>
         <Route path="Orders" element={<Orders/>}/>
